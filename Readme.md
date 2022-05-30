@@ -12,6 +12,7 @@ SSRS_BASIC_AUTH: '' // base64_encode(username:password) of SSRS Credentials
 Call endpoint with parameter query `token`
 
 Homepage Report Example: `http://host:port?token=JWT_TOKEN`
+
 Deep Report Example: `http://host:port/Report+Project1?token=JWT_TOKEN`
 
 # How to Use this Example
