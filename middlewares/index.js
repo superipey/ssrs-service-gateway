@@ -1,11 +1,22 @@
 const jwt = require('jsonwebtoken')
-const {JWT_SECRET_SALT} = require('../config')
+const { JWT_SECRET_SALT, TOKEN_FIELD } = require('../config')
 
 let middleware = {}
 
 middleware.auth = async (req, res, next) => {
   try {
-    const token = req.query['token']
+    let token = req.query[TOKEN_FIELD]
+
+    if (req.headers.referer) {
+      let query = req.headers.referer.split("&");
+      query.map(_q => {
+        let key = _q.split("=")
+        if (key[0] == TOKEN_FIELD) {
+          token = key[1]
+        }
+      })
+    }
+
     if (!token || token === "null") {
       return res.send({
         message: 'Unauthorized'
